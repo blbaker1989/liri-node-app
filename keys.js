@@ -8,10 +8,10 @@ var twitterKeys = {
   access_token_secret: "mH2YJQVuwCAl2bswXrHhcOXzesNpERzRlFV1wCnMWDyEP",
 };
 
-var spotifyKeys = new Spotify({
-  id: "c359cc76bff043b98967e967588ff790",
-  secret: "d88200664d004b9da1b17b8d36fbf00c"
-});
+// var spotifyKeys = new Spotify({
+//   id: "c359cc76bff043b98967e967588ff790",
+//   secret: "d88200664d004b9da1b17b8d36fbf00c"
+// });
 
 module.exports = twitterKeys;
-module.exports = spotifyKeys;
+// module.exports = spotifyKeys;

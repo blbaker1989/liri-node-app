@@ -1,11 +1,11 @@
 //store dependencies as variables.
 var twitterKeys = require('./keys.js');
-var spotifyKeys = require('./keys.js');
+// var spotifyKeys = require('./keys.js');
 var twitter = require("twitter");
 var spotify = require("spotify");
 var request = require("request");
 var fs = require('fs');
-var media = process.argv[3];
+// var media = process.argv[3];
 
 //capture user input, and inform user of what to type in.
 console.log("Type my-tweets , spotify-this-song , movie-this , or do-what-it-says");
@@ -66,63 +66,36 @@ function getTweets(){
 	        }
 	    };
 	});
-};//end getTweets;
+};
 
 function mySpotify(){
 	console.log("All the Music!");
 //
 // variable for search term, test if defined.
 
-var Spotify = require('node-spotify-api');
+var spotify = require('node-spotify-api');
 
-// var spotify = new Spotify({
-//   id: "c359cc76bff043b98967e967588ff790",
-//   secret: "d88200664d004b9da1b17b8d36fbf00c"
-// });
+function spotify() {
+    var songName = process.argv[3];
+    var spotify = new Spotify({
+        id: "c359cc76bff043b98967e967588ff790",
+        secret: "d88200664d004b9da1b17b8d36fbf00c"
+    });
 
- spotify.search({ type: 'track', query: 'media' })
-  .then(function(response) {
-    console.log(response);
-  })
-  .catch(function(err) {
-    console.log(err);
-  });
-
-
-
-
-//
-//  function mySpotify(song) {
-//
-//     if (song === undefined) {
-//       song = 'What\'s my age again';
-//     };
-//   //  fs.appendFile('random.txt', ", " + media);
-//    spotify.search({
-//      type: 'track',
-//      query: song
-//    }, function(err, data) {
-//        if (err) {
-//          console.log('Error occurred: ' + err);
-//          return;
-//        }
-    //    var songs = data.tracks;
-    //    var data = [];
-    //
-    //    for (var i = 0; i < songs.length; i++) {
-    //      data.push({
-    //     'artist(s)': songs[i].artists.map(getArtistNames),
-    //     'song name: ': songs[i].name,
-    //     'preview song: ': songs[i].preview_url,
-    //     'album: ': songs[i].album.name,
-    //   });
-    // }
-
-    console.log(media);
-
-
-
+    spotify.search({ type: 'track', query: songName }, function(err, data) {
+        if (err) {
+            return console.log('Error occurred: ' + err);
+        }
+        console.log("Song " + songName);
+        console.log("Artist Name:  " + data.tracks.items[1].artists[0].name);
+        console.log("Album Name:  " + data.tracks.items[1].album.name);
+        var str = data.tracks.items[1].uri;
+        var res = str.replace("spotify:track:", "https://open.spotify.com/track/");
+        console.log("Preview URL:  " + res);
+    });
 };
+};
+
 
 
 function myMovie(){
@@ -146,11 +119,11 @@ function myMovie(){
 	        console.log("Language: " + JSON.parse(body)["Language"]);
 	        console.log("Plot: " + JSON.parse(body)["Plot"]);
 	        console.log("Actors: " + JSON.parse(body)["Actors"]);
-	        console.log("Rotten Tomatoes Rating: " + JSON.parse(body)["tomatoRating"]);
-	        console.log("Rotten Tomatoes URL: " + JSON.parse(body)["tomatoURL"]);
+	        console.log("Rotten Tomatoes Rating: " + JSON.parse(body).Ratings[1].Value);
+	        // console.log("Rotten Tomatoes URL: " + JSON.parse(body)["tomatoURL"]);
 	    }
     });
-};//end myMovie
+};
 
 function readTheManual(){
 	console.log("Looking at random.txt now");
